@@ -22,7 +22,7 @@ async function tokenValidation (req, res, next) {
         next();
     } catch (err) {
         console.log(err);
-        return res.status(500).send('Erro interno do servidor.')
+        return res.status(500).send('Erro interno do servidor.');
     }
 }
 

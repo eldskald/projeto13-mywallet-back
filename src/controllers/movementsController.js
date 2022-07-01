@@ -1,13 +1,7 @@
-import joi from 'joi';
+import dayjs from 'dayjs';
 import { db } from '../db.js';
 
-const movementSchema = joi.object({
-    amount: joi.number().required(),
-    description: joi.string().required(),
-    type: joi.string().valid('entrance', 'exit').required()
-})
-
-export async function getMovements (req, res) {
+export async function getMovements (_req, res) {
     try {
         const user = res.locals.user;
         const arr = await db.movements
@@ -15,6 +9,23 @@ export async function getMovements (req, res) {
             .sort({ time: 1 })
             .toArray();
         return res.status(200).send(arr);
+
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send('Erro interno do servidor.');
+    }
+}
+
+export async function newMovement (req, res) {
+    try {
+        const user = res.locals.user;
+        const body = req.body;
+        await db.movements.insertOne({
+            ...body,
+            userId: user._id,
+            time: dayjs().format('DD/MM/YYYY HH:mm:ss')
+        });
+        return res.status(201).send('Movimentação criada.');
 
     } catch (err) {
         console.log(err);
