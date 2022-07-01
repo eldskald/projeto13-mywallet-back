@@ -2,8 +2,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
-import { connectDatabase } from './database/mongo.js';
-import { signIn, signUp } from './controllers/accountsController.js'
+import { connectDatabase } from './db.js';
+import router from './router.js';
 
 dotenv.config();
 const SERVER_PORT = process.env.SERVER_PORT;
@@ -12,12 +12,9 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 
-// Start mongodb
 connectDatabase();
 
-// Endpoints
-server.post('/sign-in', signIn);
-server.post('/sign-up', signUp);
+server.use(router);
 
 server.listen(SERVER_PORT, () => {
     console.log(`Server listening at ${SERVER_PORT}`);
