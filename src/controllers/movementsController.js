@@ -7,7 +7,7 @@ export async function getMovements (_req, res) {
         const user = res.locals.user;
         const arr = await db.movements
             .find({ userId: user._id })
-            .sort({ time: 1 })
+            .sort({ time: -1 })
             .toArray();
         return res.status(200).send(arr);
 
