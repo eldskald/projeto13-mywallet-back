@@ -28,7 +28,10 @@ export async function signIn (_req, res) {
             userId: account._id,
             token
         });
-        return res.status(200).send(token);
+        return res.status(200).send({
+            username: account.name,
+            token
+        });
 
     } catch (err) {
         console.log(err);
