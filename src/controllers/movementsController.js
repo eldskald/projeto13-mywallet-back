@@ -20,7 +20,11 @@ export async function getMovements (_req, res) {
 export async function newMovement (req, res) {
     try {
         const user = res.locals.user;
-        const body = req.body;
+        const body = {
+            amount: Number(req.body.amount),
+            description: req.body.description,
+            type: req.body.type
+        };
         await db.movements.insertOne({
             ...body,
             userId: user._id,
