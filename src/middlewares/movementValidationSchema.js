@@ -1,7 +1,7 @@
 import joi from 'joi';
 
 const movementSchema = joi.object({
-    amount: joi.number().required(),
+    amount: joi.number().precision(2).positive().required(),
     description: joi.string().required(),
     type: joi.string().valid('entrance', 'exit').required()
 });
