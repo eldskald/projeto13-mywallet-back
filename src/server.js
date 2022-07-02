@@ -6,7 +6,7 @@ import { connectDatabase } from './db.js';
 import router from './router.js';
 
 dotenv.config();
-const SERVER_PORT = process.env.SERVER_PORT;
+const PORT = process.env.PORT || 5000;
 
 const server = express();
 server.use(express.json());
@@ -16,6 +16,6 @@ connectDatabase();
 
 server.use(router);
 
-server.listen(SERVER_PORT, () => {
-    console.log(`Server listening at ${SERVER_PORT}`);
+server.listen(PORT, () => {
+    console.log(`Server listening at ${PORT}`);
 })
