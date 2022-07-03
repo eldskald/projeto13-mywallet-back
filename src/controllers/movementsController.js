@@ -21,7 +21,7 @@ export async function newMovement (req, res) {
     try {
         const user = res.locals.user;
         const body = {
-            amount: Number(req.body.amount),
+            amount: Number(req.body.amount).toFixed(2),
             description: req.body.description,
             type: req.body.type
         };
@@ -42,7 +42,11 @@ export async function updateMovement (req, res) {
     try {
         const movementId = req.params.id;
         const user = res.locals.user;
-        const body = req.body;
+        const body = {
+            amount: Number(req.body.amount).toFixed(2),
+            description: req.body.description,
+            type: req.body.type
+        };
         await db.movements.updateOne(
             {
                 _id: ObjectId(movementId)
