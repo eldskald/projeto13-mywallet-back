@@ -7,7 +7,7 @@ const movementSchema = joi.object({
 });
 
 function movementValidationSchema (req, res, next) {
-    const validation = movementSchema.validate(req.body);
+    const validation = movementSchema.validate(req.body, {convert: false});
     if (validation.error) {
         return res.status(422).send('Preencha os campos corretamente!');
     }
